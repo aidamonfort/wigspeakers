@@ -1,0 +1,140 @@
+<div *ngIf="sp" class="profile-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mr-auto">
+                <a href="#" class="nav-link" routerLink="/speakers"> Back to WiG+ Speakers</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+                <div class="profile">
+                    <div class="avatar">
+                        <img *ngIf="sp && sp.picture != ''" src="{{sp.picture}}" alt="{{sp.name}} Profile Picture WiG+"
+                            class="img-raised rounded-circle img-fluid">
+                        <img *ngIf="sp.picture == ''" src="../../../assets/img/logo.png"
+                            alt="{{sp.name}} Profile Picture WiG+" class="img-raised rounded-circle img-fluid">
+                    </div>
+                    <div class="name">
+                        <h3 class="title">{{sp.name}}</h3>
+                        <h6 class="text-primary">{{sp.position}}</h6>
+                        <h6>{{sp.city}}, {{sp.country}}</h6>
+                        <div class="card-footer justify-content-center">
+                            <a *ngIf="sp.contactLinkedIn" href="{{sp.linkedIn}}" target="_blank"
+                                class="btn btn-link btn-just-icon"><i class="fab fa-linkedin-in"></i></a>
+                            <a *ngIf="sp.contactTwitter" href="{{sp.twitter}}" target="_blank"
+                                class="btn btn-link btn-just-icon"><i class="fab fa-twitter"></i></a>
+                            <a *ngIf="sp.contactEmail" href="javascript:;" (click)="sendEmail(sp.email)"
+                                class="btn btn-link btn-just-icon"><i class="fa fa-envelope"></i></a>
+                            <a *ngIf="sp.webpage != '' && sp.webpage != null" href="{{sp.webpage}}" target="_blank"
+                                class="btn btn-link btn-just-icon"><i class="fas fa-globe-americas"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="description text-center">
+            <p>{{sp.bio}}</p>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-6 ml-auto mr-auto">
+                <h6>Sector(s)</h6>
+                <div *ngFor="let s of sp.sector | keyvalue">
+                    <div *ngIf="s.value && s.key == 'private'">Private Company</div>
+                    <div *ngIf="s.value && s.key == 'public'">Public sector / Government</div>
+                    <div *ngIf="s.value && s.key == 'ngo'">Non-governmental organisation (NGO) / Not-For-Profit
+                        organisation</div>
+                    <div *ngIf="s.value && s.key == 'self'">Self-employed / Consulting</div>
+                    <div *ngIf="s.value && s.key == 'university'">University / Academia</div>
+                    <div *ngIf="s.value && s.key == 'international'">International organisation</div>
+                    <div *ngIf="s.value && s.key == 'other'">Other: {{sp.otherSector}}</div>
+                </div>
+            </div>
+            <div class="col-md-6 ml-auto mr-auto">
+                <h6> {{sp.years}} of experience</h6>
+                <h6> Career level {{sp.level}}</h6>
+
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-12 ml-auto mr-auto">
+                <h6>Areas of expertise</h6>
+                <span *ngFor="let s of sp.newareas | keyvalue">
+                    <span *ngIf="s.value && typeOf(areasText[s.key]) === 'string'">{{areasText[s.key]}} | </span>
+                    <span *ngFor="let sv of s.value | keyvalue">
+                        <span *ngIf="sv.value && typeOf(areasText[s.key][sv.key]) === 'string'">
+                            {{areasText[s.key][sv.key]}} | </span>
+                    </span>
+                </span>
+                <span *ngFor="let oa of sp.otherAreas">
+                    <span>{{oa}} | </span>
+                </span>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12 ml-auto mr-auto">
+                <h6>Domains of expertise</h6>
+                <span *ngFor="let d of sp.domain | keyvalue">
+                    <span *ngIf="d.value">{{domainText[d.key]}} | </span>
+                </span>
+                <span *ngFor="let od of sp.otherDomains">
+                    <span>{{od}} | </span>
+                </span>
+            </div>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-md-12 ml-auto mr-auto">
+                <h6>I can present in </h6>
+                <span *ngFor="let lan of sp.languages">
+                    {{lan}}
+                </span>
+            </div>
+        </div>
+
+        <div *ngIf="sp.qualifications && sp.qualifications != ''" class="row text-center">
+            <div class="col-md-12 ml-auto mr-auto">
+                <h6>My qualifications </h6>
+                <p>{{sp.qualifications}}</p>
+            </div>
+        </div>
+        <div *ngIf="sp.speakingExperience && sp.speakingExperience != ''" class="row text-center">
+            <div class="col-md-12 ml-auto mr-auto">
+                <h6>My speaking experince </h6>
+                <p>{{sp.speakingExperience}}</p>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+
+
+        <!--         <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+                <div class="profile-tabs">
+                    <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#studio" role="tab" data-toggle="tab">
+                                <i class="material-icons">camera</i> Studio
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#works" role="tab" data-toggle="tab">
+                                <i class="material-icons">palette</i> Work
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#favorite" role="tab" data-toggle="tab">
+                                <i class="material-icons">favorite</i> Favorite
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+    </div>
+</div>

@@ -18,6 +18,9 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
+          <a href="#" class="nav-link" routerLink="/speakers"> WiG+ Speakers</a>
+        </li>
+        <li class="nav-item">
           <a href="#" class="nav-link" routerLink="/how"> How does it work?</a>
         </li>
         <li class="nav-item">
@@ -41,16 +44,19 @@
             <i class="fas fa-tshirt"></i>
           </a>
         </li>
+        <li class="nav-item" *ngIf="isUser">
+          <a routerLink="/register" href="#" class="nav-link"> <i
+              class="fas fa-user"></i> My Profile</a>
+        </li>
         <li class="nav-item">
           <a routerLink="/login" [hidden]="isUser" href="#" class="nav-link"> <i class="fas fa-user"></i> Log In</a>
-          <a routerLink="/login" [hidden]="!isUser" href="#" class="nav-link" (click)="logOut()"> <i
-              class="fas fa-user"></i> Log Out</a>
+          <a routerLink="/login" [hidden]="!isUser" href="#" class="nav-link" (click)="logOut()"><i class="fas fa-sign-out-alt"></i> Log Out</a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg-pic.png')">
+<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg-pic.jpg')">
   <!--  style="background-color: #86339A;"  -->
   <div class="container">
     <div class="row">

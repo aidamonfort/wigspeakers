@@ -6,7 +6,7 @@ export class Speaker {
         public id: string = '',
         public name: string = '',
         public position: string = '',
-        public qualifications: string[] = [],
+        public qualifications: string = '',
         public sector: {
             private: boolean,
             public: boolean,
@@ -256,6 +256,7 @@ export class Speaker {
                 slack: false,
                 mailing: false
             },
+        public geoFeature: any = null
     ) { }
 
 }

@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { SpeakersComponent } from './components/speakers/speakers.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
@@ -21,7 +23,11 @@ import 'firebase/storage';
 import { GdprComponent } from './components/gdpr/gdpr.component';
 import { TermsComponent } from './components/terms/terms.component';
 import { HowComponent } from './components/how/how.component';
+import { SpeakerComponent } from './components/speaker/speaker.component';
+import { SpeakerService } from './services/speaker.service';
 
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -30,10 +36,14 @@ import { HowComponent } from './components/how/how.component';
     LoginComponent,
     GdprComponent,
     TermsComponent,
-    HowComponent
+    HowComponent,
+    SpeakersComponent,
+    SpeakerComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -42,11 +52,16 @@ import { HowComponent } from './components/how/how.component';
     AngularFireAuthModule,
     AngularFireStorageModule,
     NgSelectModule,
-    FormsModule
-
+    FormsModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken: environment.mapBoxToken // Optional, can also be set per map (accessToken input of mgl-map)
+     // geocoderAccessToken: 'TOKEN' // Optional, specify if different from the map access token, 
+     // can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
+    })
   ],
   providers: [
-    ScreenTrackingService
+    ScreenTrackingService,
+    SpeakerService
   ],
   bootstrap: [AppComponent]
 })

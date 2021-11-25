@@ -1,0 +1,91 @@
+h2 {
+    color: #86339A;
+    text-align: center;
+}
+
+h4 {
+    text-transform: uppercase;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+mgl-map {
+    height: 100%;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn-chevron {
+    color: #86339A !important;
+    padding: 0%;
+    padding-right: 2px;
+    text-transform: none;
+}
+
+label.heading {
+    color: #86339A;
+}
+
+.ng-option-label{
+    font-size: smaller !important;
+}
+
+.profile {
+    text-align: center;
+}
+
+.profile img {
+    max-width: 160px;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-transform: translate3d(0, -50%, 0);
+    -moz-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+}
+
+.profile .name {
+    margin-top: -80px;
+}
+
+span {
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+p {
+    white-space: break-spaces;
+}
+
+
+::ng-deep .marker-cluster {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #4f615a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 2px solid #56c498;
+  cursor: pointer;
+}
+
+.marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #7d7d7d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #c9c9c9;
+}

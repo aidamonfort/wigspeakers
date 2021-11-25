@@ -30,6 +30,7 @@ export class AppComponent {
   }
 
   logOut() {
+    this.isUser = false;
     this.fAuth.auth.signOut();
   }
 }

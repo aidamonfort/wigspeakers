@@ -1,0 +1,27 @@
+.profile {
+    text-align: center;
+}
+
+.profile img {
+    max-width: 160px;
+    width: 100%;
+    margin: 0 auto;
+    -webkit-transform: translate3d(0, -50%, 0);
+    -moz-transform: translate3d(0, -50%, 0);
+    -o-transform: translate3d(0, -50%, 0);
+    -ms-transform: translate3d(0, -50%, 0);
+    transform: translate3d(0, -50%, 0);
+}
+
+.profile .name {
+    margin-top: -80px;
+}
+
+span {
+    font-size: 14px;
+    margin: 0 0 10px;
+}
+
+p {
+    white-space: break-spaces;
+}
