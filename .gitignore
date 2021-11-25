@@ -50,5 +50,6 @@ Thumbs.db
 firebase.json
 src/app/app.componenOLD.html
 
+.src/environments/
 src/environments/environment.ts
 src/environments/environment.prod.ts
