@@ -29,7 +29,7 @@ import { SpeakerService } from './services/speaker.service';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { ContactComponent } from './components/contact/contact.component';
 
-import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -60,8 +60,7 @@ import { NgbPaginationModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
       accessToken: environment.mapBoxToken // Optional, can also be set per map (accessToken input of mgl-map)
      // geocoderAccessToken: 'TOKEN' // Optional, specify if different from the map access token, 
      // can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
-    }),
-    NgbModule
+    })
   ],
   providers: [
     ScreenTrackingService,

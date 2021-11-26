@@ -267,11 +267,11 @@
             <div class="tab-content tab-space">
                 <div class="tab-pane active" id="mapPane">
 
-                    <div *ngIf="this.spService.featureCollection" style="height: 600px;">
+                    <div *ngIf="this.spService.featureCollection" style="height: 600px;" id="mapDiv">
 
-                        <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[1]" [center]="[0, 0]">
+                   <!--      <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[1]" [center]="[0, 0]"> -->
                             <!-- Zoom controls -->
-                            <mgl-control mglNavigation position="top-left"> </mgl-control>
+                         <!--    <mgl-control mglNavigation position="top-left"> </mgl-control> -->
 
                             <!-- Geolocation control -->
                             <!--      <mgl-control mglGeolocate position="top-left" [positionOptions]="{
@@ -280,12 +280,12 @@
                             </mgl-control> -->
 
 
-
+<!-- 
                             <mgl-control class="search-box" mglGeocoder (result)="onGeocoderResult($event)"
                                 types="address"></mgl-control>
 
                             <mgl-geojson-source id="wigs-source" [cluster]="true" [clusterMaxZoom]="14"
-                                [clusterRadius]="50" [data]="this.spService.featureCollection">
+                                [clusterRadius]="50" [data]="this.spService.featureCollection"> -->
                                 <!-- -->
 
 
@@ -329,8 +329,6 @@
     </mgl-layer>
 
  -->
-
-
 
                                 <!-- 
                           <mgl-layer
@@ -437,8 +435,8 @@
                                     </div>
                                 </mgl-feature> -->
 
-                            </mgl-geojson-source>
-                        </mgl-map>
+           <!--                  </mgl-geojson-source>
+                        </mgl-map> -->
 
                     </div>
                 </div>

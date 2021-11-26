@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { SpeakerService } from '../../services/speaker.service';
+import { MapService } from '../../services/map.service';
 import { Speaker } from '../../speaker';
 import { ActivatedRoute } from '@angular/router';
 
@@ -316,7 +317,7 @@ export class SpeakersComponent implements OnInit {
 
   selectedSpeaker: Speaker;
 
-  constructor(private route: ActivatedRoute, public spService: SpeakerService) {
+  constructor(private route: ActivatedRoute, public spService: SpeakerService, public mapService: MapService) {
   }
 
   ngOnInit(): void {
@@ -324,6 +325,10 @@ export class SpeakersComponent implements OnInit {
     if (id) {
       this.seeProfile(id);
     }
+
+    setTimeout(() => {
+      this.mapService.buildMap();
+    }, 2000);
   }
 
   seeProfile(id) {
