@@ -13,10 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 export class SpeakersComponent implements OnInit {
 
   private map: mapboxgl.Map;
-  public paginationLimitFrom = 0;
-  public paginationLimitTo = 8;
   public LIMIT_PER_PAGE = 8;
-  public currentPage = 0;
+  public currentPage = 1;
 
   textSearch = '';
   searchSector = {
@@ -337,27 +335,6 @@ export class SpeakersComponent implements OnInit {
           spSub.unsubscribe();
         }
       });
-  }
-
-  range(size, startAt = 0) {
-    size = Math.ceil(size);
-    return [...Array(size).keys()].map(i => i + startAt);
-  }
-
-  nextPage() {
-    if (this.currentPage + 1 < Math.ceil(this.spService.speakersList.length / this.LIMIT_PER_PAGE)) {
-      this.paginationLimitFrom = this.paginationLimitFrom + this.LIMIT_PER_PAGE;
-      this.paginationLimitTo = this.paginationLimitTo + this.LIMIT_PER_PAGE;
-      this.currentPage++;
-    }
-  }
-
-  previousPage() {
-    if (this.currentPage > 0) {
-      this.paginationLimitFrom = this.paginationLimitFrom - this.LIMIT_PER_PAGE;
-      this.paginationLimitTo = this.paginationLimitTo - this.LIMIT_PER_PAGE;
-      this.currentPage--;
-    }
   }
 
   filterAll() {

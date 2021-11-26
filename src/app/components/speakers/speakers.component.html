@@ -29,9 +29,9 @@
             <button type="button" class="btn btn-link btn-xs btn-chevron"
                 (click)="showSE.classList.contains('hidden') ? showSE.className = '' : showSE.className = 'hidden' ">
                 <i [ngClass]="showSE.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
-        
-            <label class="heading" for="sector">&nbsp; Filter by sector</label>
-        </button>
+
+                <label class="heading" for="sector">&nbsp; Filter by sector</label>
+            </button>
             <div #showSE>
                 <div class="form-check ">
                     <label class="form-check-label">
@@ -104,8 +104,8 @@
             <button type="button" class="btn btn-link btn-xs btn-chevron"
                 (click)="showYE.classList.contains('hidden') ? showYE.className = '' : showYE.className = 'hidden' ">
                 <i [ngClass]="showYE.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
-           
-            <label class="heading" for="experience">&nbsp; Filter by years of work experience</label>
+
+                <label class="heading" for="experience">&nbsp; Filter by years of work experience</label>
             </button>
             <div #showYE>
                 <div class="form-check form-check-radio">
@@ -154,8 +154,8 @@
                 (click)="showLE.classList.contains('hidden') ? showLE.className = '' : showLE.className = 'hidden' ">
                 <!-- [tooltip]="showLO.classList.contains('hidden')? 'Show' : 'Hide'" -->
                 <i [ngClass]="showLE.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
-          
-            <label class="heading" for="level">&nbsp; Filter by career level</label>
+
+                <label class="heading" for="level">&nbsp; Filter by career level</label>
             </button>
             <div #showLE>
                 <div class="form-check form-check-radio">
@@ -195,8 +195,8 @@
                 (click)="showAR.classList.contains('hidden') ? showAR.className = '' : showAR.className = 'hidden' ">
                 <!-- [tooltip]="showLO.classList.contains('hidden')? 'Show' : 'Hide'" -->
                 <i [ngClass]="showAR.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
-           
-            <label class="heading" for="level">&nbsp; Filter by area of expertise</label>
+
+                <label class="heading" for="level">&nbsp; Filter by area of expertise</label>
             </button>
             <div #showAR class="hidden">
 
@@ -211,7 +211,7 @@
                         </span>
                     </label>
 
-           <!--          <span *ngFor="let arChild of ar.value | keyvalue">
+                    <!--          <span *ngFor="let arChild of ar.value | keyvalue">
                         <label *ngIf="typeOf(areasText[ar.key][arChild.key]) === 'string'" class="form-check-label">
                             <input class="form-check-input" name="area" type="checkbox" [checked]="ar.value"
                                 (change)="searchAreas[ar.key][arChild.key] = !arChild.value; filterAll()">
@@ -230,8 +230,8 @@
                 (click)="showDO.classList.contains('hidden') ? showDO.className = '' : showDO.className = 'hidden' ">
                 <!-- [tooltip]="showLO.classList.contains('hidden')? 'Show' : 'Hide'" -->
                 <i [ngClass]="showDO.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
-        
-            <label class="heading" for="level">&nbsp; Filter by domain of expertise</label>
+
+                <label class="heading" for="level">&nbsp; Filter by domain of expertise</label>
             </button>
             <div #showDO class="hidden">
 
@@ -252,8 +252,8 @@
             <button type="button" class="btn btn-link btn-xs btn-chevron"
                 (click)="showLAN.classList.contains('hidden') ? showLAN.className = '' : showLAN.className = 'hidden' ">
                 <i [ngClass]="showLAN.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
-           
-            <label class="heading" for="experience">&nbsp; Filter by presenting language</label>
+
+                <label class="heading" for="experience">&nbsp; Filter by presenting language</label>
             </button>
             <div #showLAN>
                 <div class="form-group">
@@ -267,7 +267,7 @@
             <div class="tab-content tab-space">
                 <div class="tab-pane active" id="mapPane">
 
-                    <div  *ngIf="this.spService.featureCollection" style="height: 600px;">
+                    <div *ngIf="this.spService.featureCollection" style="height: 600px;">
 
                         <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[1]" [center]="[0, 0]">
                             <!-- Zoom controls -->
@@ -285,7 +285,7 @@
                                 types="address"></mgl-control>
 
                             <mgl-geojson-source id="wigs-source" [cluster]="true" [clusterMaxZoom]="14"
-                                [clusterRadius]="50" [data]="this.spService.featureCollection" >
+                                [clusterRadius]="50" [data]="this.spService.featureCollection">
                                 <!-- -->
 
 
@@ -293,7 +293,7 @@
                                 <!-- <mgl-feature *ngFor="let geometry of spService.filteredSpeakersList" [geometry]="geometry"></mgl-feature> -->
 
 
-<!--     <mgl-layer id="clusters" type="circle" source="wigs-source" [filter]="['has', 'point_count']" [paint]="{
+                                <!--     <mgl-layer id="clusters" type="circle" source="wigs-source" [filter]="['has', 'point_count']" [paint]="{
                 'circle-color': {
                   property: 'point_count',
                   type: 'interval',
@@ -332,7 +332,7 @@
 
 
 
-<!-- 
+                                <!-- 
                           <mgl-layer
                             id="clusters"
                             type="circle"
@@ -386,7 +386,7 @@
                           >
                           </mgl-layer>   -->
 
-                           <!--      <mgl-feature *ngFor="let sp of spService.filteredSpeakersList">
+                                <!--      <mgl-feature *ngFor="let sp of spService.filteredSpeakersList">
                                     <div
                                         *ngIf="sp.geoFeature && sp.geoFeature.geometry && sp.geoFeature.geometry.coordinates">
                                         <mgl-marker #myMarker
@@ -445,7 +445,7 @@
 
                 <div class="tab-pane" id="listPane">
                     <div class="row">
-                        <div *ngFor="let sp of this.spService.filteredSpeakersList | slice:paginationLimitFrom:paginationLimitTo; let i=index"
+                        <div *ngFor="let sp of this.spService.filteredSpeakersList.slice((currentPage-1) * LIMIT_PER_PAGE , currentPage * LIMIT_PER_PAGE ); let i=index"
                             class="col-md-3">
                             <div class="team-player">
                                 <div class="card card-plain">
@@ -483,27 +483,12 @@
                     </div>
                     <div *ngIf="this.spService.filteredSpeakersList" class="row">
                         <div class="col-md-6 ml-auto mr-auto">
-                            <nav aria-label="pagination">
-                                <ul class="pagination justify-content-center">
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:;" (click)="previousPage()">Previous</a>
-                                    </li>
-                                    <li *ngFor="let page of range(this.spService.filteredSpeakersList.length/LIMIT_PER_PAGE, 0)"
-                                        class="page-item" [ngClass]="currentPage == page? 'active': ''">
-                                        <a class="page-link" href="javascript:;"
-                                            (click)="currentPage=page; paginationLimitFrom=page*LIMIT_PER_PAGE; paginationLimitTo=page*LIMIT_PER_PAGE+LIMIT_PER_PAGE ">{{page+1}}
-                                            <span *ngIf="currentPage == page" class="sr-only">(current)</span>
-                                        </a></li>
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:;" (click)="nextPage()">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <ngb-pagination [collectionSize]="this.spService.filteredSpeakersList.length"
+                                [(page)]="currentPage" [maxSize]="5" [rotate]="true" [pageSize]="LIMIT_PER_PAGE">
+                            </ngb-pagination>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
