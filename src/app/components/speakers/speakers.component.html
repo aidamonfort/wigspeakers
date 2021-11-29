@@ -1,7 +1,9 @@
 <div [hidden]="selectedSpeaker"
     *ngIf="this.spService && this.spService.speakersList && this.spService.speakersList.length > 0"
     class="section text-center">
-    <h2>Find your WiG+ speaker here (total: {{this.spService.filteredSpeakersList.length}})</h2>
+    <h2>Find your Women in Geospatial+ speaker today (total: {{this.spService.filteredSpeakersList.length}})</h2>
+    <h3 *ngIf="this.spService.filteredSpeakersList.length == 0">Sorry, there is no profile fitting your request, try
+        widening your search!</h3>
     <div>
         <ul class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-center" role="tablist">
             <li class="nav-item">
@@ -111,7 +113,8 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="experience" id="experience1" type="radio"
-                            value="0 - 5 years" (change)="filterAll()" [(ngModel)]="textYears">
+                            value="0 - 5 years" (click)="textYears === '0 - 5 years'? textYears='':null; filterAll()"
+                            (change)="filterAll()" [(ngModel)]="textYears">
                         0 - 5 years
                         <span class="circle">
                             <span class="check"></span>
@@ -121,7 +124,8 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="experience" id="experience2" type="radio"
-                            value="5 - 10 years" (change)="filterAll()" [(ngModel)]="textYears">
+                            value="5 - 10 years" (click)="textYears === '5 - 10 years'? textYears='':null; filterAll()"
+                            (change)="filterAll()" [(ngModel)]="textYears">
                         5 - 10 years
                         <span class="circle">
                             <span class="check"></span>
@@ -131,7 +135,9 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="experience" id="experience3" type="radio"
-                            value="10 - 20 years" (change)="filterAll()" [(ngModel)]="textYears">
+                            value="10 - 20 years"
+                            (click)="textYears === '10 - 20 years'? textYears='':null; filterAll()"
+                            (change)="filterAll()" [(ngModel)]="textYears">
                         10 - 20 years
                         <span class="circle">
                             <span class="check"></span>
@@ -141,7 +147,8 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="experience" id="experience4" type="radio"
-                            value="20 + years " (change)="filterAll()" [(ngModel)]="textYears">
+                            value="20 + years " (click)="textYears === '20 + years '? textYears='':null; filterAll()"
+                            (change)="filterAll()" [(ngModel)]="textYears">
                         20 + years
                         <span class="circle">
                             <span class="check"></span>
@@ -161,6 +168,7 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="level" id="level1" type="radio" value="Early-career"
+                            (click)="textLevel === 'Early-career'? textLevel='':null; filterAll()"
                             (change)="filterAll()" [(ngModel)]="textLevel">
                         Early-career
                         <span class="circle">
@@ -171,7 +179,8 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="level" id="level2" type="radio" value="Mid-level"
-                            (change)="filterAll()" [(ngModel)]="textLevel">
+                            (click)="textLevel === 'Mid-level'? textLevel='':null; filterAll()" (change)="filterAll()"
+                            [(ngModel)]="textLevel">
                         Mid-level
                         <span class="circle">
                             <span class="check"></span>
@@ -181,6 +190,7 @@
                 <div class="form-check form-check-radio">
                     <label class="form-check-label">
                         <input class="form-check-input" name="level" id="level3" type="radio" value="Senior-level"
+                            (click)="textLevel === 'Senior-level'? textLevel='':null; filterAll()"
                             (change)="filterAll()" [(ngModel)]="textLevel">
                         Senior-level
                         <span class="circle">
@@ -255,12 +265,28 @@
 
                 <label class="heading" for="experience">&nbsp; Filter by presenting language</label>
             </button>
-            <div #showLAN>
+            <div #showLAN class="hidden">
                 <div class="form-group">
                     <ng-select class="text-sm" [items]="languages" [multiple]="false" appendTo="body" name="languages"
                         [(ngModel)]="searchLanguages" (change)="filterAll()"></ng-select>
                 </div>
             </div>
+            <br>
+            <button type="button" class="btn btn-link btn-xs btn-chevron"
+                (click)="showWR.classList.contains('hidden') ? showWR.className = '' : showWR.className = 'hidden' ">
+                <i [ngClass]="showWR.classList.contains('hidden')? 'fa fa-chevron-up' : 'fa fa-chevron-down'"></i>
+
+                <label class="heading" for="experience">&nbsp; Filter by world region</label>
+            </button>
+            <div #showWR class="hidden">
+                <div class="form-group">
+                    <ng-select class="text-sm" [items]="regions" [multiple]="false" appendTo="body" name="region"
+                        [(ngModel)]="searchRegions" (change)="filterAll()"></ng-select>
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-outline-primary btn-round" (click)="clearSearch()">Clear search</button>
+
         </div>
         <div class="col-md-9">
 
@@ -269,175 +295,7 @@
 
                     <div *ngIf="this.spService.featureCollection" style="height: 600px;" id="mapDiv">
 
-                   <!--      <mgl-map [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[1]" [center]="[0, 0]"> -->
-                            <!-- Zoom controls -->
-                         <!--    <mgl-control mglNavigation position="top-left"> </mgl-control> -->
-
-                            <!-- Geolocation control -->
-                            <!--      <mgl-control mglGeolocate position="top-left" [positionOptions]="{
-                                                                enableHighAccuracy: true
-                                                             }" [trackUserLocation]="true">
-                            </mgl-control> -->
-
-
-<!-- 
-                            <mgl-control class="search-box" mglGeocoder (result)="onGeocoderResult($event)"
-                                types="address"></mgl-control>
-
-                            <mgl-geojson-source id="wigs-source" [cluster]="true" [clusterMaxZoom]="14"
-                                [clusterRadius]="50" [data]="this.spService.featureCollection"> -->
-                                <!-- -->
-
-
-
-                                <!-- <mgl-feature *ngFor="let geometry of spService.filteredSpeakersList" [geometry]="geometry"></mgl-feature> -->
-
-
-                                <!--     <mgl-layer id="clusters" type="circle" source="wigs-source" [filter]="['has', 'point_count']" [paint]="{
-                'circle-color': {
-                  property: 'point_count',
-                  type: 'interval',
-                  stops: [
-                    [0, '#51bbd6'],
-                    [100, '#f1f075'],
-                    [750, '#f28cb1']
-                  ]
-                },
-                'circle-radius': {
-                  property: 'point_count',
-                  type: 'interval',
-                  stops: [
-                    [0, 20],
-                    [100, 30],
-                    [750, 40]
-                  ]
-                }
-              }">
-    </mgl-layer>
-    <mgl-layer id="cluster-count" type="symbol" source="wigs-source" [filter]="['has', 'point_count']" [layout]="{
-                'text-field': '{point_count_abbreviated}',
-                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-                'text-size': 12
-              }">
-    </mgl-layer>
-    <mgl-layer id="unclustered-point" type="circle" source="wigs-source" [filter]="['!has', 'point_count']" [paint]="{
-                'circle-color': '#11b4da',
-                'circle-radius': 4,
-                'circle-stroke-width': 1,
-                'circle-stroke-color': '#fff'
-              }">
-    </mgl-layer>
-
- -->
-
-                                <!-- 
-                          <mgl-layer
-                            id="clusters"
-                            type="circle"
-                            source="wigs-source"
-                            [filter]="['has', 'point_count']"
-                            [paint]="{
-                              'circle-color': {
-                                property: 'point_count',
-                                type: 'interval',
-                                stops: [
-                                  [0, '#51bbd6'],
-                                  [100, '#f1f075'],
-                                  [750, '#f28cb1']
-                                ]
-                              },
-                              'circle-radius': {
-                                property: 'point_count',
-                                type: 'interval',
-                                stops: [
-                                  [0, 20],
-                                  [100, 30],
-                                  [750, 40]
-                                ]
-                              }
-                            }"
-                          >
-                          </mgl-layer>
-                          <mgl-layer
-                            id="cluster-count"
-                            type="symbol"
-                            source="wigs-source"
-                            [filter]="['has', 'point_count']"
-                            [layout]="{
-                              'text-field': '{point_count_abbreviated}',
-                              'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-                              'text-size': 12
-                            }"
-                          >
-                          </mgl-layer>
-                          <mgl-layer
-                            id="unclustered-point"
-                            type="circle"
-                            source="wigs-source"
-                            [filter]="['!has', 'point_count']"
-                            [paint]="{
-                              'circle-color': '#11b4da',
-                              'circle-radius': 4,
-                              'circle-stroke-width': 1,
-                              'circle-stroke-color': '#fff'
-                            }"
-                          >
-                          </mgl-layer>   -->
-
-                                <!--      <mgl-feature *ngFor="let sp of spService.filteredSpeakersList">
-                                    <div
-                                        *ngIf="sp.geoFeature && sp.geoFeature.geometry && sp.geoFeature.geometry.coordinates">
-                                        <mgl-marker #myMarker
-                                            [lngLat]="sp.geoFeature != null? sp.geoFeature.geometry.coordinates : [0,0]"
-                                            anchor="bottom">
-                                            <div [ngStyle]="{
-                                                'background-image': 'url(https://firebasestorage.googleapis.com/v0/b/speakerswig.appspot.com/o/map%2Fpin.png?alt=media&token=d29343d0-2d30-42b5-8bb3-24a5f22ba8f4)',
-                                                'background-size': 'cover',
-                                                width: '41px',
-                                                height: '50px',
-                                                cursor: 'pointer'
-                                              }"></div>
-                                        </mgl-marker>
-                                        <mgl-popup [marker]="myMarker">
-                                            <div class="card card-plain text-center">
-                                                <div class="col-md-4 ml-auto mr-auto">
-                                                    <img *ngIf="sp.picture != ''" src="{{sp.picture}}" loading="lazy"
-                                                        alt="{{sp.name}} Profile Picture WiG+"
-                                                        class="img-raised rounded-circle img-fluid">
-                                                    <img *ngIf="sp.picture == ''" src="../../../assets/img/logo.png"
-                                                        alt="{{sp.name}} Profile Picture WiG+"
-                                                        class="img-raised rounded-circle img-fluid">
-                                                </div>
-                                                <h6 class="card-title"> {{sp.name}}
-                                                    <br>
-                                                    <small class="card-description text-muted small">
-                                                        {{sp.position}}</small>
-                                                </h6>
-                                                <a (click)="seeProfile(sp.id)" class="text-primary">See complete
-                                                    profile</a>
-                                                <div class="card-footer justify-content-center">
-                                                    <a *ngIf="sp.contactLinkedIn" href="{{sp.linkedIn}}" target="_blank"
-                                                        class="btn btn-link btn-just-icon"><i
-                                                            class="fab fa-linkedin-in"></i></a>
-                                                    <a *ngIf="sp.contactTwitter" href="{{sp.twitter}}" target="_blank"
-                                                        class="btn btn-link btn-just-icon"><i
-                                                            class="fab fa-twitter"></i></a>
-                                                    <a *ngIf="sp.contactEmail"
-                                                        href="mailto:{{sp.email}}subject=WiG+ speaker"
-                                                        class="btn btn-link btn-just-icon"><i
-                                                            class="fa fa-envelope"></i></a>
-                                                    <a *ngIf="sp.webpage != '' && sp.webpage != null" target="_blank"
-                                                        href="{{sp.webpage}}" class="btn btn-link btn-just-icon"><i
-                                                            class="fas fa-globe-americas"></i></a>
-                                                </div>
-                                            </div>
-                                        </mgl-popup>
-                                    </div>
-                                </mgl-feature> -->
-
-           <!--                  </mgl-geojson-source>
-                        </mgl-map> -->
-
+                      
                     </div>
                 </div>
 
@@ -533,9 +391,170 @@
                 </div>
             </div>
         </div>
-        <div class="description text-center">
-            <p>{{selectedSpeaker.bio}}</p>
+        <div class="text-center">
+            <p class="bio">{{selectedSpeaker.bio}}</p>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-3 text-left">
+                <div class="row">
+                    <div class="col-md-3 ma">
+                        <span class="material-icons">
+                            device_hub
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        <h6 class="heading">Sector(s)</h6>
+                        <div *ngFor="let s of selectedSpeaker.sector | keyvalue">
+                            <div *ngIf="s.value && s.key == 'private'">Private Company</div>
+                            <div *ngIf="s.value && s.key == 'public'">Public sector / Government</div>
+                            <div *ngIf="s.value && s.key == 'ngo'">Non-governmental organisation (NGO) / Not-For-Profit
+                                organisation</div>
+                            <div *ngIf="s.value && s.key == 'self'">Self-employed / Consulting</div>
+                            <div *ngIf="s.value && s.key == 'university'">University / Academia</div>
+                            <div *ngIf="s.value && s.key == 'international'">International organisation</div>
+                            <div *ngIf="s.value && s.key == 'other'">Other: {{selectedSpeaker.otherSector}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 ma">
+                        <span class="material-icons">
+                            assignment_ind
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        <h6 class="heading">Years of experience</h6>
+                        {{selectedSpeaker.years}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 ma">
+                        <span class="material-icons">
+                            poll
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        <h6 class="heading"> Career level</h6>
+                        {{selectedSpeaker.level}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 ma">
+                        <span class="material-icons">
+                            present_to_all
+                        </span>
+                    </div>
+                    <div class="col-md-9">
+                        <h6 class="heading">I can present in </h6>
+                        <span *ngFor="let lan of selectedSpeaker.languages">
+                            {{lan}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9 text-left">
+                <div class="row">
+                    <div class="col-md-1 ma">
+                        <span class="material-icons">
+                            public
+                        </span>
+                    </div>
+                    <div class="col-md-11 text-left">
+                        <h6 class="heading">Areas of expertise</h6>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngFor="let a of areasClean" class="col-md-6 text-left">
+                        <li>{{a}} </li>
+                    </div>
+                    <div *ngFor="let oa of selectedSpeaker.otherAreas" class="col-md-6 text-left">
+                        <li>{{oa}} </li>
+                    </div>
+                </div>
+                <!--  <div class="row">
+                    <div *ngFor="let s of selectedSpeaker.newareas | keyvalue" class="col-md-6 text-left">
+                        <li *ngIf="s.value && typeOf(areasText[s.key]) === 'string'">{{areasText[s.key]}} </li>
+                        <div *ngFor="let sv of s.value | keyvalue">
+                            <li *ngIf="sv.value && typeOf(areasText[s.key][sv.key]) === 'string'">
+                                {{areasText[s.key][sv.key]}} </li>
+                        </div>
+                    </div>
+                    <div *ngFor="let oa of selectedSpeaker.otherAreas" class="col-md-6 text-left">
+                        <li>{{oa}} </li>
+                    </div>
+                </div> -->
+                <br>
+                <div class="row">
+                    <div class="col-md-1 ma">
+                        <span class="material-icons">
+                            speaker_notes
+                        </span>
+                    </div>
+                    <div class="col-md-11 text-left">
+                        <h6 class="heading">Domains of expertise</h6>
+                    </div>
+                </div>
+                <!--              <div class="row">
+                    <span *ngFor="let d of selectedSpeaker.domain | keyvalue" class="col-md-6 text-left">
+                        <li *ngIf="d.value">{{domainText[d.key]}} </li>
+                    </span>
+                    <span *ngFor="let od of selectedSpeaker.otherDomains">
+                        <li *ngIf="od != ''">{{od}} </li>
+                    </span>
+                </div> -->
+                <div class="row">
+                    <div *ngFor="let d of domainsClean" class="col-md-6 text-left">
+                        <li>{{d}} </li>
+                    </div>
+                    <div *ngFor="let od of selectedSpeaker.otherDomains">
+                        <li *ngIf="od != ''">{{od}} </li>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="selectedSpeaker.qualifications && selectedSpeaker.qualifications != ''"
+                    class="row text-left">
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <div class="row">
+                            <div class="col-md-1 ma">
+                                <span class="material-icons">
+                                    fact_check
+                                </span>
+                            </div>
+                            <div class="col-md-11 text-left">
+                                <h6 class="heading">Qualifications </h6>
+                            </div>
+                        </div>
+                        <p>{{selectedSpeaker.qualifications}}</p>
+                    </div>
+                </div>
+                <br>
+                <div *ngIf="selectedSpeaker.speakingExperience && selectedSpeaker.speakingExperience != ''"
+                    class="row text-left">
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <div class="row">
+                            <div class="col-md-1 ma">
+                                <span class="material-icons">
+                                    record_voice_over
+                                </span>
+                            </div>
+                            <div class="col-md-11 text-left">
+                                <h6 class="heading">Speaking experience </h6>
+                            </div>
+                        </div>
+                        <p [innerHTML]="selectedSpeaker.speakingExperience"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--  <hr>
 
         <div class="row text-center">
             <div class="col-md-6 ml-auto mr-auto">
@@ -606,7 +625,7 @@
                 <h6>My speaking experince </h6>
                 <p>{{selectedSpeaker.speakingExperience}}</p>
             </div>
-        </div>
+        </div> -->
 
         <br>
         <br>

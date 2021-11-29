@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>WiG+Speakers</title>
+  <title>Women in Geospatial+ Speakers Database</title>
   <meta name="description"
     content="Women in Geospatial Speakers database will help to see more people of underrepresented gender backgrounds sharing their expertise on stage.">
   <meta name="keywords" content="Women, Geospatial, underrepresented gender, speakers, database, GIS, EO, expertise">
@@ -24,7 +24,7 @@
   <meta property="fb:app_id" content="485433432129311" />
 
   <meta itemprop="name" content="WiG+Speakers">
-  <html itemscope itemtype="http://speakers.womeningeospatial.org/">
+  <!--   <html itemscope itemtype="http://speakers.womeningeospatial.org/">-->
   <meta itemprop="description"
     content="WiG+ Speakers database will help to see more people of underrepresented gender backgrounds sharing their expertise on stage.">
   <meta itemprop="image" content="https://speakers.womeningeospatial.org/assets/img/bg-pic.png">
@@ -53,6 +53,17 @@
 
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css" rel="stylesheet" />
 
+  <script>
+    console.log('prueba');
+
+    const isIE = /msie\s|trident\//i.test(window.navigator.userAgent);
+   // console.log('is IE' + isIE);
+    if (isIE){
+      alert("This browser is currently not supported. Please try with another one. Sorry for the inconvenience.")
+    }
+
+  </script>
+
 </head>
 
 <body>
@@ -74,8 +85,8 @@
   <script src="../assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
   <script src="../assets/js/plugins/moment.min.js"></script>
   <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-<!--   <script src="../assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script> -->  
-<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <!--   <script src="../assets/js/plugins/bootstrap-datetimepicker.js" type="text/javascript"></script> -->
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
   <script src="../assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
   <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/material-kit.js?v=2.0.6" type="text/javascript"></script>

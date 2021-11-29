@@ -82,7 +82,7 @@ export class MapService {
 
       // Load an image from an external URL.
       this.map.loadImage(
-        'https://firebasestorage.googleapis.com/v0/b/speakerswig.appspot.com/o/map%2Fpin.png?alt=media&token=d29343d0-2d30-42b5-8bb3-24a5f22ba8f4',
+        '/assets/img/pin.png',
         (error, image) => {
           if (error) throw error;
 

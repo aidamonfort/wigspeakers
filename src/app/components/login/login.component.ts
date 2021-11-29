@@ -24,13 +24,11 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     if (fAuth.auth.currentUser !== null) { // there is user logged in
       this.isLoading = false;
-      console.log('is loading currentuser: ' + this.isLoading);
       this.ngZone.run(() => this.router.navigateByUrl('/register')).then();
       // this.router.navigate(['/register']);
     }
     this.fAuth.auth.onAuthStateChanged(u => {
       this.isLoading = false;
-      console.log('is loading state changed: ' + this.isLoading);
       if (u) {
         this.ngZone.run(() => this.router.navigateByUrl('/register')).then();
       }
@@ -85,7 +83,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.errorSignIn = '';
     this.isLoading = false;
-    console.log('is loading onInit: ' + this.isLoading);
   }
 
 }

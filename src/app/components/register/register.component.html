@@ -197,7 +197,7 @@
                 <div class="form-group">
                     <label class="heading" for="bio">Bio</label>
                     <textarea class="form-control"
-                        placeholder="Hint: an outstanding bio is short and precise. Try to explain your professional experiences two sentences or less."
+                        placeholder="Hint: an outstanding bio is short and precise, use a maximum 150 words. Don’t overthink it, use third person and show off your main accomplishments. There is a specific section for speaking experience below, so use this space to write about yourself, your goals and your achievements."
                         id="bio" rows="3" name="bio" [(ngModel)]="model.bio"></textarea>
                 </div>
 
@@ -222,7 +222,7 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label class="heading" for="city">What city do you come from?</label>
+                            <label class="heading" for="city">What city do you currently reside?</label>
                             <input type="text" class="form-control" id="city" name="city" [(ngModel)]="model.city">
                         </div>
                     </div>
@@ -944,8 +944,8 @@
                 </div>
 
                 <div style="display: inline" *ngFor="let a of model.otherAreas" [hidden]="!model.newareas.other">
-                    <button class="btn btn-other btn-primary" (click)="removeOtherItem(a, model.otherAreas)" ><span aria-hidden="true" class="ng-value-icon left x"
-                            style="z-index: 199">×</span>{{a}}</button>
+                    <button class="btn btn-other btn-primary" (click)="removeOtherItem(a, model.otherAreas)"><span
+                            aria-hidden="true" class="ng-value-icon left x" style="z-index: 199">×</span>{{a}}</button>
                 </div>
                 <div class="form-group" [hidden]="!model.newareas.other">
                     <label class="heading" for="otherArea">Add any additional areas of expertise</label>
@@ -1150,7 +1150,7 @@
 
                 <!-- otherDomains -->
 
-        <!--         <div class="form-group" [hidden]="!model.domain.other">
+                <!--         <div class="form-group" [hidden]="!model.domain.other">
                     <label class="heading" for="otherApp">List any other domain(s) you work in</label>
                     <div class="input-group">
                         <input type="text" class="form-control" id="otherApp" name="otherApp"
@@ -1160,8 +1160,8 @@
  -->
 
                 <div style="display: inline" *ngFor="let a of model.otherDomains" [hidden]="!model.domain.other">
-                    <button class="btn btn-other btn-primary" (click)="removeOtherItem(a, model.otherDomains)" ><span aria-hidden="true" class="ng-value-icon left x"
-                            style="z-index: 199">×</span>{{a}}</button>
+                    <button class="btn btn-other btn-primary" (click)="removeOtherItem(a, model.otherDomains)"><span
+                            aria-hidden="true" class="ng-value-icon left x" style="z-index: 199">×</span>{{a}}</button>
                 </div>
                 <div class="form-group" [hidden]="!model.domain.other">
                     <label class="heading" for="otherApp">List any other domain(s) you work in</label>
@@ -1312,6 +1312,17 @@
                             <a routerLink="/gdpr"> Data privacy statement</a>
                         </label>
                     </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="acceptedNoCIS"
+                                [checked]="acceptedNoCIS" (change)="acceptedNoCIS= !acceptedNoCIS">
+                            I declare to be a woman or minority genders (non cis-male)
+                            <span class="form-check-sign">
+                                <span class="check"></span>
+                            </span>
+
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="signin">
@@ -1390,6 +1401,9 @@
                     <a class="btn btn-danger btn-round btn-wd btn-sm" (click)="removeData()">Delete your
                         account</a>
                 </div>
+                <br>
+                <p class="description text-center">Women In Geospatial+ reserves the right to delete male profiles, or
+                    any other profile considered as abusive.</p>
 
             </form>
 

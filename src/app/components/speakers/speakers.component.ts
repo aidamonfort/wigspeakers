@@ -4,6 +4,8 @@ import { MapService } from '../../services/map.service';
 import { Speaker } from '../../speaker';
 import { ActivatedRoute } from '@angular/router';
 
+import Autolinker from 'autolinker';
+
 /* import { MapService } from 'src/app/services/map.service';
  */
 @Component({
@@ -308,6 +310,7 @@ export class SpeakersComponent implements OnInit {
   };
 
   searchLanguages = '';
+  searchRegions = '';
 
   contactEmail = {
     name: '',
@@ -315,9 +318,33 @@ export class SpeakersComponent implements OnInit {
     message: ''
   };
 
+
+  public regions = [
+    'Africa - West',
+    'Africa - East',
+    'Africa - Other',
+    'Asia - China',
+    'Asia - India',
+    'Asia - Other',
+    'Australia / New Zealand',
+    'Canada',
+    'Central America',
+    'US - East Coast',
+    'US - West Coast',
+    'US - South',
+    'US - Midwest',
+    'Latin America',
+    'Middle East',
+    'Europe - Other',
+    'Europe - UK/ Ireland ',
+  ];
+
   selectedSpeaker: Speaker;
+  areasClean = [];
+  domainsClean = [];
 
   constructor(private route: ActivatedRoute, public spService: SpeakerService, public mapService: MapService) {
+
   }
 
   ngOnInit(): void {
@@ -329,6 +356,7 @@ export class SpeakersComponent implements OnInit {
     setTimeout(() => {
       this.mapService.buildMap();
     }, 2000);
+    this.clearSearch();
   }
 
   seeProfile(id) {
@@ -337,7 +365,50 @@ export class SpeakersComponent implements OnInit {
       .subscribe(speaker => {
         if (speaker) {
           this.selectedSpeaker = speaker;
+          if (this.selectedSpeaker.speakingExperience) {
+            this.selectedSpeaker.speakingExperience = Autolinker.link(this.selectedSpeaker.speakingExperience);
+          }
+          if (this.selectedSpeaker.contactTwitter) {
+            if (this.selectedSpeaker.twitter[0] === '@') {
+              const tw = this.selectedSpeaker.twitter.split('@')[1];
+              this.selectedSpeaker.twitter = 'https://twitter.com/' + tw;
+            }
+          }
+          if (this.selectedSpeaker.contactLinkedIn) {
+            if (!this.selectedSpeaker.linkedIn.includes('.com')) {
+              this.selectedSpeaker.linkedIn = 'https://www.linkedin.com/search/results/all/?keywords=' + this.selectedSpeaker.linkedIn;
+            }
+          }
+
+          this.areasClean = [];
+          Object.keys(this.selectedSpeaker.newareas).forEach(area => {
+            if (this.selectedSpeaker.newareas[area]) {
+              if (this.typeOf(this.areasText[area]) === 'string') {
+                this.areasClean.push(this.areasText[area]);
+              } else {
+                Object.keys(this.selectedSpeaker.newareas[area]).forEach(subarea => {
+                  if (this.selectedSpeaker.newareas[area][subarea]) {
+                    if (this.typeOf(this.areasText[area][subarea]) === 'string') {
+                      this.areasClean.push(this.areasText[area][subarea]);
+                    }
+                  }
+                });
+              }
+            }
+          });
+
+          this.domainsClean = [];
+          Object.keys(this.selectedSpeaker.domain).forEach(domain => {
+            if (this.selectedSpeaker.domain[domain]) {
+              if (this.typeOf(this.domainText[domain]) === 'string') {
+                this.domainsClean.push(this.domainText[domain]);
+              }
+            }
+          });
+
           spSub.unsubscribe();
+          console.log('Selected speaker:');
+          console.log(speaker);
         }
       });
   }
@@ -351,6 +422,7 @@ export class SpeakersComponent implements OnInit {
     this.filterByLanguages();
     this.filterByDomain();
     this.filterByArea();
+    this.filterByRegions();
   }
 
   filterByText() {
@@ -381,6 +453,10 @@ export class SpeakersComponent implements OnInit {
     this.spService.filterSpeakersByLanguages(this.searchLanguages);
   }
 
+  filterByRegions() {
+    this.spService.filterSpeakersByRegions(this.searchRegions);
+  }
+
   onGeocoderResult(event) {
     console.log(event);
     /*     new Popup()
@@ -393,6 +469,119 @@ export class SpeakersComponent implements OnInit {
     return typeof value;
   }
 
+  clearSearch() {
+
+    this.textSearch = '';
+    this.searchSector = {
+      private: false,
+      public: false,
+      ngo: false,
+      self: false,
+      university: false,
+      international: false,
+    };
+    this.searchDomain = {
+      public: false,
+      defence: false,
+      emergency: false,
+      climate: false,
+      smart: false,
+      citizen: false,
+      transportation: false,
+      energy: false,
+      manufacturing: false,
+      environment: false,
+      food: false,
+      sustainable: false,
+      policy: false,
+    };
+    this.searchAreas = {
+      research: false,
+      geosoft: false,
+      geosoftsub: {
+        foss4g: false,
+        arcgis: false,
+        mapinfo: false,
+        cadcorp: false,
+        fme: false,
+        other: false,
+      },
+      webmapping: false,
+      webmappingsub: {
+        openlayers: false,
+        leaflet: false,
+        arcgis: false,
+        d3: false,
+        mapbox: false,
+        other: false,
+      },
+      geoopendata: false,
+      geoopendatasub: {
+        geonode: false,
+        arcgis: false,
+        copernicus: false,
+        earth: false,
+        google: false,
+      },
+      remote: false,
+      gis: false,
+      ethical: false,
+      geocloud: false,
+      geocloudsub: {
+        google: false,
+        amazon: false,
+        other: false,
+      },
+      geoprogramming: false,
+      geoprogrammingsub: {
+        python: false,
+        r: false,
+        jupyter: false,
+        javascript: false,
+        other: false,
+      },
+      datavis: false,
+      datavissub: {
+        cartography: false,
+        dashboards: false,
+        graphic: false,
+      },
+      dataJournalism: false,
+      strategic: false,
+      strategicsub: {
+        geospatial: false,
+        policy: false,
+        gi: false,
+        growth: false,
+      },
+      geodata: false,
+      geodatasub: {
+        spatial: false,
+        location: false,
+        bigdata: false,
+        opendata: false,
+      },
+      entrepreneurship: false,
+      innovation: false,
+      innovationsub: {
+        ar: false,
+        vr: false,
+        ml: false,
+        blockchain: false,
+        fiveg: false,
+        iot: false,
+        geotrans: false,
+      },
+    };
+
+    this.searchLanguages = '';
+    this.searchRegions = '';
+    this.textLevel = '';
+    this.textYears = '';
+
+    this.filterAll();
+
+  }
 
   sendEmail(e) {
     location.href = 'mailto:' + e + '?subject=WiG+ speaker';

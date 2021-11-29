@@ -1,0 +1,39 @@
+<br>
+<br>
+
+
+<table *ngIf="this.spService && this.spService.speakersList && this.spService.speakersList?.length != 0" datatable [dtOptions]="dtOptions" class="row-border hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+<!--         <th>LinkedIn</th>
+        <th>Twitter</th> -->
+        <th>Want to sign in?</th>
+        <th>To Mailing</th>
+        <th>To Slack</th>
+        <th>Mark as Added</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="this.spService.speakersList?.length != 0">
+        <tr *ngFor="let sp of spService.speakersList">
+            <td >{{ sp.id }}</td>
+            <td>{{ sp.name }}</td>
+            <td>{{ sp.email }}</td>
+<!--             <td>{{ sp.linkedIn }}</td>
+            <td>{{ sp.twitter }}</td> -->
+            <td>{{ sp.signin.option }}</td>
+            <td>{{ sp.signin.mailing }}</td>
+            <td>{{ sp.signin.slack }}</td>
+            <td> <button class="btn btn-sm btn-primary" *ngIf="sp.signin.option=='yes'" (click)="markAddedSP(sp)">Add</button> </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="this.spService.speakersList?.length == 0">
+      <tr>
+        <td colspan="3" class="no-data-available">No data!</td>
+      </tr>
+    <tbody>
+  </table>
+  <br>
+  <br>

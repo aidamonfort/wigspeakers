@@ -31,6 +31,7 @@ export class RegisterComponent implements OnInit {
   public errorGDPR = '';
 
   public acceptedGDPR = false;
+  public acceptedNoCIS = false;
 
   public areasText = {
     research: 'Research / Science Please specify ...',
@@ -225,14 +226,12 @@ export class RegisterComponent implements OnInit {
     }
 
     this.fAuth.auth.onAuthStateChanged(u => {
-      /*       this.zone.run();
-            ngZone.run(); */
       if (u && u.uid !== this.userIdToDelete) {
         this.user = u;
-        this.fFire.collection('speakers').doc<Speaker>(this.user.uid).valueChanges().subscribe(s => {
+        const uSubs = this.fFire.collection('speakers').doc<Speaker>(this.user.uid).valueChanges().subscribe(s => {
           if (s) {
             this.model = s;
-            if (this.model.picture === '') {
+            if (!this.model.picture) {
               this.model.picture = '../assets/img/profile.jpg';
             }
             if (!this.model.sector) {
@@ -362,13 +361,16 @@ export class RegisterComponent implements OnInit {
                 webmappingsubText: ''
               };
             }
-
-            console.log(this.model);
+            if (!this.model.languages) {
+              this.model.languages = [];
+            }
+            uSubs.unsubscribe();
           } else {
             // login for first time
             if (this.user && this.model) {
-            this.model.email = this.user.email;
-            this.fFire.collection('speakers').doc<Speaker>(this.user.uid).set(Object.assign({}, this.model));
+              this.model.email = this.user.email;
+
+              this.fFire.collection('speakers').doc<Speaker>(this.user.uid).set(Object.assign({}, this.model));
             }
           }
         });
@@ -380,13 +382,12 @@ export class RegisterComponent implements OnInit {
 
   saveData() {
     this.fAnalytics.logEvent('custom_event', { event: 'saveData', date: new Date().toUTCString() });
-    if (this.acceptedGDPR) {
-      console.log(this.model);
+    if (this.acceptedGDPR && this.acceptedNoCIS) {
       this.fFire.collection('speakers').doc<Speaker>(this.user.uid).set(Object.assign({}, this.model));
       this.errorGDPR = '';
       this.savedTxt = 'Your data has been saved!';
     } else {
-      this.errorGDPR = 'You need to accept our GDPR statement and Terms and Conditions.';
+      this.errorGDPR = 'You need to accept our GDPR statement and Terms and Conditions. You need also to declare you are not a cis-male.';
       this.savedTxt = '';
     }
   }
@@ -400,7 +401,6 @@ export class RegisterComponent implements OnInit {
       console.log('Error deleting data: ' + error);
     })
       .then(res => {
-        console.log('Result deleting data: ' + res);
         // this.fAuth.auth.signOut();
         this.fAuth.auth.currentUser.delete().catch(error => {
           if (error) {
@@ -448,7 +448,6 @@ export class RegisterComponent implements OnInit {
   }
 
   handleFileInput(files) {
-    console.log(files[0]);
     let filePath = '';
     if (files[0].type === 'image/png') {
       filePath = 'profile' + this.user.uid + '.png';

@@ -33,7 +33,23 @@ label.heading {
     color: #86339A;
 }
 
-.ng-option-label{
+h6.heading {
+    color: #86339A;
+    text-transform: uppercase;
+    font-size: small;
+}
+
+span.material-icons {
+    font-size: 40px;
+    vertical-align: middle;
+    margin: auto;
+}
+
+.ma {
+    margin: auto;
+}
+
+.ng-option-label {
     font-size: smaller !important;
 }
 
@@ -57,14 +73,18 @@ label.heading {
 }
 
 span {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0 0 10px;
 }
 
 p {
+    font-size: 16px;
     white-space: break-spaces;
 }
 
+.bio {
+    font-size: 16px;
+}
 
 ::ng-deep .marker-cluster {
   width: 30px;

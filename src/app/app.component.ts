@@ -14,9 +14,8 @@ export class AppComponent {
   why = false;
   terms = false;
   isUser = false;
-  constructor(public fAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute,) {
+  constructor(public fAuth: AngularFireAuth, private router: Router, private route: ActivatedRoute) {
     console.log (this.route);
-
     this.fAuth.auth.onAuthStateChanged(u => {
       if (u) {
         this.user = u;
