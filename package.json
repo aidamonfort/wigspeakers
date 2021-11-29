@@ -30,7 +30,7 @@
     "bootstrap": "^4.4.0",
     "angular-datatables": "^9.0.2",
     "autolinker": "^3.14.1",
-    "datatables.net": "^1.10.21",
+    "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.10.21",
     "firebase": "^7.2.1",
     "jquery": "^3.5.1",
