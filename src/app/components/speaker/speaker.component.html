@@ -2,17 +2,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 mr-auto">
-                <a href="#" class="nav-link" routerLink="/speakers"> Back to WiG+ Speakers</a>
+                <a href="#" class="nav-link" routerLink="/speakers"> Back to W+G Speakers</a>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 ml-auto mr-auto">
                 <div class="profile">
                     <div class="avatar">
-                        <img *ngIf="sp && sp.picture != ''" src="{{sp.picture}}" alt="{{sp.name}} Profile Picture WiG+"
+                        <img *ngIf="sp && sp.picture != ''" src="{{sp.picture}}" alt="{{sp.name}} Profile Picture W+G"
                             class="img-raised rounded-circle img-fluid">
                         <img *ngIf="sp.picture == ''" src="../../../assets/img/logo.png"
-                            alt="{{sp.name}} Profile Picture WiG+" class="img-raised rounded-circle img-fluid">
+                            alt="{{sp.name}} Profile Picture W+G" class="img-raised rounded-circle img-fluid">
                     </div>
                     <div class="name">
                         <h3 class="title">{{sp.name}}</h3>

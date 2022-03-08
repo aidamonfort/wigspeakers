@@ -34,6 +34,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { DataTablesModule } from 'angular-datatables';
 
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
     SpeakersComponent,
     SpeakerComponent,
     ContactComponent,
-    AdminComponent
+    AdminComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

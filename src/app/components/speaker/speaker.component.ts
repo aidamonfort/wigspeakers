@@ -139,7 +139,7 @@ export class SpeakerComponent implements OnInit {
   }
 
   sendEmail(e) {
-    location.href = 'mailto:' + e + '?subject=WiG+ speaker';
+    location.href = 'mailto:' + e + '?subject=W+G speaker';
   }
 
 }

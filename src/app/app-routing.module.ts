@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { HowComponent } from './components/how/how.component';
 import { SpeakersComponent } from './components/speakers/speakers.component';
+import { MapComponent } from './components/map/map.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { redirectUnauthorizedTo, canActivate } from '@angular/fire/auth-guard';
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'speakers', component: SpeakersComponent },
   { path: 'speakers/:id', component: SpeakersComponent },
+  { path: 'map', component: MapComponent },
   { path: '',  redirectTo: '/speakers', pathMatch: 'full'}
 ];
 

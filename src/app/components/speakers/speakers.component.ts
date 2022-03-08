@@ -5,6 +5,7 @@ import { Speaker } from '../../speaker';
 import { ActivatedRoute } from '@angular/router';
 
 import Autolinker from 'autolinker';
+import { ThrowStmt } from '@angular/compiler';
 
 /* import { MapService } from 'src/app/services/map.service';
  */
@@ -355,7 +356,7 @@ export class SpeakersComponent implements OnInit {
 
     setTimeout(() => {
       this.mapService.buildMap();
-    }, 2000);
+    }, 4000);
     this.clearSearch();
   }
 
@@ -423,6 +424,8 @@ export class SpeakersComponent implements OnInit {
     this.filterByDomain();
     this.filterByArea();
     this.filterByRegions();
+    this.spService.buildFeatureCollection();
+    this.mapService.updateSource();
   }
 
   filterByText() {
@@ -584,7 +587,7 @@ export class SpeakersComponent implements OnInit {
   }
 
   sendEmail(e) {
-    location.href = 'mailto:' + e + '?subject=WiG+ speaker';
+    location.href = 'mailto:' + e + '?subject=W+G speaker';
   }
 
 

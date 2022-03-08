@@ -21,6 +21,7 @@ export class SpeakerService {
   speakersList: Speaker[];
   filteredSpeakersList: Speaker[];
   featureCollection = '{"type":"FeatureCollection","features":[';
+  countriesCount = {};
 
   private db: AngularFirestore;
   constructor(db: AngularFirestore, public fAuth: AngularFireAuth) {
@@ -61,6 +62,18 @@ export class SpeakerService {
             }
           }
           if (sp.geoFeature) {
+            sp.geoFeature.properties.id = sp.id;
+            sp.geoFeature.properties.picture = sp.picture;
+            sp.geoFeature.properties.name = sp.name;
+            sp.geoFeature.properties.position = sp.position;
+            sp.geoFeature.properties.contactLinkedIn = sp.contactLinkedIn;
+            sp.geoFeature.properties.linkedIn = sp.linkedIn;
+            sp.geoFeature.properties.contactEmail = sp.contactEmail;
+            sp.geoFeature.properties.email = sp.email;
+            sp.geoFeature.properties.contactTwitter = sp.contactTwitter;
+            sp.geoFeature.properties.twitter = sp.twitter;
+            sp.geoFeature.properties.webpage = sp.webpage;
+
             this.featureCollection = this.featureCollection + JSON.stringify(sp.geoFeature) + ',';
           }
           if (sp.contactTwitter) {
@@ -74,7 +87,25 @@ export class SpeakerService {
               sp.linkedIn = 'https://www.linkedin.com/search/results/all/?keywords=' + sp.linkedIn;
             }
           }
-
+          if (sp.geoFeature && sp.geoFeature.context && sp.geoFeature.context[0] && sp.geoFeature.context[0].short_code) {
+            // console.log(sp.geoFeature.context[0].short_code.slice(0, 2).toUpperCase());
+            const code = sp.geoFeature.context[0].short_code.slice(0, 2).toUpperCase();
+            if (this.countriesCount[code]) {
+              this.countriesCount[code]++;
+            } else {
+              this.countriesCount[code] = 1;
+            }
+          } else {
+            if (sp.geoFeature && sp.geoFeature.context && sp.geoFeature.context[1] && sp.geoFeature.context[1].short_code) {
+              // console.log(sp.geoFeature.context[1].short_code.slice(0, 2).toUpperCase());
+              const code = sp.geoFeature.context[1].short_code.slice(0, 2).toUpperCase();
+              if (this.countriesCount[code]) {
+                this.countriesCount[code]++;
+              } else {
+                this.countriesCount[code] = 1;
+              }
+            }
+          }
           this.speakersList.push(sp);
         }
       });
@@ -85,6 +116,35 @@ export class SpeakerService {
 
       this.featureCollection = this.featureCollection.replace('},]}', '}]}');
     });
+  }
+
+
+  buildFeatureCollection() {
+
+    if (this.filteredSpeakersList && this.filteredSpeakersList.length > 0) {
+      this.featureCollection = '{"type":"FeatureCollection","features":[';
+      this.filteredSpeakersList.forEach(sp => {
+        if (sp.geoFeature) {
+          sp.geoFeature.properties.id = sp.id;
+          sp.geoFeature.properties.picture = sp.picture;
+          sp.geoFeature.properties.name = sp.name;
+          sp.geoFeature.properties.position = sp.position;
+          sp.geoFeature.properties.contactLinkedIn = sp.contactLinkedIn;
+          sp.geoFeature.properties.linkedIn = sp.linkedIn;
+          sp.geoFeature.properties.contactEmail = sp.contactEmail;
+          sp.geoFeature.properties.email = sp.email;
+          sp.geoFeature.properties.contactTwitter = sp.contactTwitter;
+          sp.geoFeature.properties.twitter = sp.twitter;
+          sp.geoFeature.properties.webpage = sp.webpage;
+
+          this.featureCollection = this.featureCollection + JSON.stringify(sp.geoFeature) + ',';
+        }
+
+      });
+      this.featureCollection = this.featureCollection + ']}';
+      this.featureCollection = this.featureCollection.replace('},]}', '}]}');
+      // console.log('updated feature collection');
+    }
   }
 
   subscribeToSpeakers(): Observable<Speaker[]> {
@@ -208,7 +268,7 @@ export class SpeakerService {
 
     /*     this.filteredSpeakersList.forEach(sk => {
      if (!sk.newareas) {
-
+  
        const newAEmpty = {
          research: false,
          geosoft: false,
@@ -287,8 +347,8 @@ export class SpeakerService {
            geotrans: false,
          },
          other: false};
-
-
+  
+  
        console.log('No areas');
        console.log(sk);
        return this.db

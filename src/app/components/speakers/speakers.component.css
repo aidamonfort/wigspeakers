@@ -1,5 +1,5 @@
 h2 {
-    color: #86339A;
+    color: #522d6d;
     text-align: center;
 }
 
@@ -23,18 +23,18 @@ mgl-map {
 }
 
 .btn-chevron {
-    color: #86339A !important;
+    color: #522d6d !important;
     padding: 0%;
     padding-right: 2px;
     text-transform: none;
 }
 
 label.heading {
-    color: #86339A;
+    color: #522d6d;
 }
 
 h6.heading {
-    color: #86339A;
+    color: #522d6d;
     text-transform: uppercase;
     font-size: small;
 }

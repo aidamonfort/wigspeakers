@@ -1,4 +1,4 @@
-<nav class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg" color-on-scroll="100">
+<nav *ngIf="!routeMap" class="navbar navbar-color-on-scroll navbar-transparent fixed-top navbar-expand-lg" color-on-scroll="100">
   <div class="container">
     <div class="navbar-translate">
       <a class="navbar-brand" href="https://www.womeningeospatial.org">
@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a href="#" class="nav-link" routerLink="/speakers"> WiG+ Speakers</a>
+          <a href="#" class="nav-link" routerLink="/speakers"> W+G Speakers</a>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link" routerLink="/how"> How does it work?</a>
@@ -38,9 +38,9 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" rel="tooltip" title="Get your Women in Geospatial+ swag" data-placement="bottom"
+          <a class="nav-link" rel="tooltip" title="Get your Women+ in Geospatial swag" data-placement="bottom"
             href="https://www.google.com/url?q=https%3A%2F%2Fwww.redbubble.com%2Fpeople%2Fclearmappingco%2Fworks%2F39517764-women-in-geospatial-logo%3Fasc%3Du&sa=D&sntz=1&usg=AFQjCNECX3MjcY1-X4_bdrQz5OKfVwBYKw"
-            target="_blank" data-original-title="Get your Women in Geospatial+ swag">
+            target="_blank" data-original-title="Get your Women+ in Geospatial swag">
             <i class="fas fa-tshirt"></i>
           </a>
         </li>
@@ -56,14 +56,14 @@
     </div>
   </div>
 </nav>
-<div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg-pic.jpg')">
+<div *ngIf="!routeMap" class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg-pic.jpg')">
   <!--  style="background-color: #86339A;"  -->
   <div class="container">
     <div class="row">
       <div class="col-md-8 ml-auto mr-auto">
         <div class="brand text-center">
-          <h1 class="title">Women in Geospatial+ Speakers Database</h1>
-          <h3 class="title text-center">Be part of the Women in Geospatial+ speakers database! Register, speak up and
+          <h1 class="title">Women+ in Geospatial Speakers Database</h1>
+          <h3 class="title text-center">Be part of the W+G speakers database! Register, speak up and
             embrace change!
           </h3>
         </div>
@@ -71,17 +71,17 @@
     </div>
   </div>
 </div>
-<div class="main main-raised">
+<div *ngIf="!routeMap" class="main main-raised">
   <div class="container">
     <router-outlet></router-outlet>
   </div>
 </div>
-<footer class="footer footer-default">
+<footer *ngIf="!routeMap" class="footer footer-default">
   <div class="container">
     <nav class="float-left">
       <ul>
         <li>
-          &copy; 2020 Women in Geospatial+
+          &copy; 2022 Women+ in Geospatial
         </li>
       </ul>
     </nav>
@@ -92,3 +92,5 @@
     </div>
   </div>
 </footer>
+
+<router-outlet *ngIf="routeMap" ></router-outlet>
